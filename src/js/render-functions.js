@@ -27,7 +27,7 @@ export function createGallery(images) {
 
 export function clearGallery() {
   galleryContainer.innerHTML = '';
-}
+}  
 
 export function showLoader() {
   galleryContainer.classList.add('loading');
