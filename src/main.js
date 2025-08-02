@@ -1,7 +1,8 @@
-import { getImagesByQuery } from './pixabay-api';
-import { createGallery, clearGallery, showLoader, hideLoader } from './render-functions';
+import { getImagesByQuery } from './js/pixabay-api';
+import { createGallery, clearGallery, showLoader, hideLoader } from './js/render-functions';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
+import axios from 'axios';
 
 const form = document.querySelector('.form');
 const gallery = document.querySelector('.gallery');
@@ -17,7 +18,7 @@ form.addEventListener('submit', async event => {
   clearGallery();
   showLoader();
 
-  try {
+  try {npm
     const data = await getImagesByQuery(query);
     const hits = data.hits;
     if (hits.length === 0) {
