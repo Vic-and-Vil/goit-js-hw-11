@@ -45,3 +45,4 @@ export function showLoadMoreButton() {
 export function hideLoadMoreButton() {
   document.querySelector('.load-more-btn').classList.add('hidden');
 }
+

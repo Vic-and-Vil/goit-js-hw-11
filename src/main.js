@@ -38,7 +38,7 @@ form.addEventListener('submit', async event => {
   form.reset();
 });
 
-loadMoreBtn.addEventListener('submit', async () => {
+loadMoreBtn.addEventListener('click', async () => {
   currentPage += 1;
   await fetchAndRender(true);
 });
