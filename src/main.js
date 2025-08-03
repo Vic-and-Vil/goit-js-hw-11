@@ -38,7 +38,7 @@ form.addEventListener('submit', async event => {
   form.reset();
 });
 
-loadMoreBtn.addEventListener('click', async () => {
+loadMoreBtn.addEventListener('submit', async () => {
   currentPage += 1;
   await fetchAndRender(true);
 });
@@ -92,3 +92,4 @@ function smoothScroll() {
   const { height } = firstCard.getBoundingClientRect();
   window.scrollBy({ top: 2 * height, behavior: 'smooth' });
 }
+loadMoreBtn.classList.add('hidden');
