@@ -1,4 +1,4 @@
-import { getImagesByQuery } from './js/pixabay-api';
+import { getImagesByQuery } from './js/pixabay-api.js';
 import {
   createGallery,
   clearGallery,
@@ -6,7 +6,8 @@ import {
   hideLoader,
   showLoadMoreButton,
   hideLoadMoreButton,
-} from './js/render-functions';
+  smoothScroll,
+} from './js/render-functions.js';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
@@ -19,7 +20,7 @@ let totalHits = 0;
 
 form.addEventListener('submit', async event => {
   event.preventDefault();
-  currentQuery = form.elements['search-text'].value.trim(); // ← Назва як у другому варіанті
+  currentQuery = form.elements['search-text'].value.trim();
 
   if (!currentQuery) {
     iziToast.warning({
@@ -46,7 +47,6 @@ loadMoreBtn.addEventListener('click', async () => {
 async function fetchAndRender(isLoadMore = false) {
   showLoader();
   try {
-    // ✅ ГОЛОВНЕ: передаємо currentPage!
     const data = await getImagesByQuery(currentQuery, currentPage);
     const { hits, totalHits: total } = data;
     totalHits = total;
@@ -54,7 +54,7 @@ async function fetchAndRender(isLoadMore = false) {
     if (hits.length === 0) {
       iziToast.info({
         title: 'No results',
-        message: 'Sorry, there are no images matching your search query. Please try again!',
+        message: 'No images found. Try again!',
         position: 'topRight',
       });
       hideLoadMoreButton();
@@ -69,7 +69,7 @@ async function fetchAndRender(isLoadMore = false) {
       hideLoadMoreButton();
       iziToast.info({
         title: 'End',
-        message: "We're sorry, but you've reached the end of search results.",
+        message: 'You have reached the end of search results.',
         position: 'topRight',
       });
     }
@@ -86,10 +86,4 @@ async function fetchAndRender(isLoadMore = false) {
   }
 }
 
-function smoothScroll() {
-  const firstCard = document.querySelector('.gallery .photo-card');
-  if (!firstCard) return;
-  const { height } = firstCard.getBoundingClientRect();
-  window.scrollBy({ top: 2 * height, behavior: 'smooth' });
-}
 loadMoreBtn.classList.add('hidden');
